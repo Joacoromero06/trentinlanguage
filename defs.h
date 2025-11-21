@@ -4,6 +4,8 @@
 # include <stdio.h>
 # include <stdlib.h> 
 # include <string.h>
+# include <ctype.h>
+
 /*========================================================================*/
 /*nodetypes for struct data, distinguishes the different datatypes in Tree*/
 /*========================================================================*/

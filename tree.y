@@ -12,9 +12,12 @@
     tData d;
 }
 %token <d> NUMBER    
-%token ADD KICK FROM
-%token UNION INTER DIFF
+%token T_ADD T_KICK FROM
+%token T_UNION T_INTER T_DIFF
 %type <a> exp lit_struct list_exp 
+
+%left T_UNION 
+%left T_
 
 %start tree-sl
 %%
@@ -25,11 +28,11 @@ tree-sl: exp    { printf("\n=> "); mostrarData(eval($1)); }
 exp: 
 NUMBER          { $$ = newdata(INT, NULL, $1); }
 | lit_struct    {}
-| ADD exp FROM exp  { $$ = newast(ADD, $2, $4); } //en que momento llamamos a eval
-| KICK exp FROM exp { $$ = newast(KICK, $2, $4); }//definir token kick y en defs
-| exp UNION exp { $$ = newast(UNION, $1, $3); } //donde carajeanos resulta union? en la primera lista?
-| exp INTER exp { $$ = newast(INTER, $1, $3)}
-| exp DIFF exp { $$ = newast(DIFF, %1, $3) }
+| T_ADD exp FROM exp  { $$ = newast(ADD, $2, $4); } //en que momento llamamos a eval
+| T_KICK exp FROM exp { $$ = newast(KICK, $2, $4); }//definir token kick y en defs
+| exp T_UNION exp { $$ = newast(UNION, $1, $3); } //donde carajeanos resulta union? en la primera lista?
+| exp T_INTER exp { $$ = newast(INTER, $1, $3);}
+| exp T_DIFF exp { $$ = newast(DIFF, $1, $3); }
 
 ; 
 lit_struct:  

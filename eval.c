@@ -109,13 +109,13 @@ tData evalopslist(struct ast *a)
     switch (a->nodetype)
     {
     case ADD:
-        if (r->nodetype == LIST)
-        { // cuando es LIST es struct data casteado a ast  3 add [1, 2]
-            nuevo = createList();
+        if (get_type_ast(r) == LIST)
+        { 
             nuevo = copiarData(eval(r));
-            mostrarData(((struct data *)r)->d);
+            //mostrarData(((struct data *)r)->d);
+            printf("luego de agregar "); mostrarData(nuevo); printf("\n"); 
             agregarData(&nuevo, eval(l));
-            // agregarData(&nuevo,((struct data*)l)->d);
+            printf("luego de agregar "); mostrarData(nuevo);        
         }
         break;
     case KICK:

@@ -109,14 +109,22 @@ enum yysymbol_kind_t
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
   YYSYMBOL_NUMBER = 3,                     /* NUMBER  */
-  YYSYMBOL_4_ = 4,                         /* '['  */
-  YYSYMBOL_5_ = 5,                         /* ']'  */
-  YYSYMBOL_6_ = 6,                         /* ','  */
-  YYSYMBOL_YYACCEPT = 7,                   /* $accept  */
-  YYSYMBOL_8_tree_sl = 8,                  /* tree-sl  */
-  YYSYMBOL_exp = 9,                        /* exp  */
-  YYSYMBOL_lit_struct = 10,                /* lit_struct  */
-  YYSYMBOL_list_exp = 11                   /* list_exp  */
+  YYSYMBOL_T_ADD = 4,                      /* T_ADD  */
+  YYSYMBOL_T_KICK = 5,                     /* T_KICK  */
+  YYSYMBOL_FROM = 6,                       /* FROM  */
+  YYSYMBOL_T_UNION = 7,                    /* T_UNION  */
+  YYSYMBOL_T_INTER = 8,                    /* T_INTER  */
+  YYSYMBOL_T_DIFF = 9,                     /* T_DIFF  */
+  YYSYMBOL_10_ = 10,                       /* '['  */
+  YYSYMBOL_11_ = 11,                       /* ']'  */
+  YYSYMBOL_12_ = 12,                       /* '{'  */
+  YYSYMBOL_13_ = 13,                       /* '}'  */
+  YYSYMBOL_14_ = 14,                       /* ','  */
+  YYSYMBOL_YYACCEPT = 15,                  /* $accept  */
+  YYSYMBOL_16_tree_sl = 16,                /* tree-sl  */
+  YYSYMBOL_exp = 17,                       /* exp  */
+  YYSYMBOL_lit_struct = 18,                /* lit_struct  */
+  YYSYMBOL_list_exp = 19                   /* list_exp  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -442,21 +450,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  9
+#define YYFINAL  16
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   9
+#define YYLAST   49
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  7
+#define YYNTOKENS  15
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  5
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  8
+#define YYNRULES  15
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  13
+#define YYNSTATES  31
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   258
+#define YYMAXUTOK   264
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -474,20 +482,15 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     6,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,    14,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     4,     2,     5,     2,     2,     2,     2,     2,     2,
+       2,    10,     2,    11,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,    12,     2,    13,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -495,14 +498,21 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     1,     2,     3
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
+       5,     6,     7,     8,     9
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    20,    20,    24,    25,    28,    29,    32,    33
+       0,    22,    22,    26,    27,    28,    29,    30,    31,    32,
+      36,    37,    38,    39,    42,    43
 };
 #endif
 
@@ -518,8 +528,9 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"", "NUMBER", "'['", "']'",
-  "','", "$accept", "tree-sl", "exp", "lit_struct", "list_exp", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "NUMBER", "T_ADD",
+  "T_KICK", "FROM", "T_UNION", "T_INTER", "T_DIFF", "'['", "']'", "'{'",
+  "'}'", "','", "$accept", "tree-sl", "exp", "lit_struct", "list_exp", YY_NULLPTR
 };
 
 static const char *
@@ -529,7 +540,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-4)
+#define YYPACT_NINF (-11)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -543,8 +554,10 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       0,    -4,    -3,     5,    -4,    -4,    -4,     1,     3,    -4,
-       0,    -4,    -4
+      25,   -11,    25,    25,     4,    21,     5,     3,   -11,    35,
+      40,   -11,    31,   -10,   -11,    -9,   -11,    25,    25,    25,
+      25,    25,    25,   -11,   -11,     3,     3,     3,     3,     3,
+     -11
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -552,20 +565,22 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     3,     0,     0,     2,     4,     5,     7,     0,     1,
-       0,     6,     8
+       0,     3,     0,     0,     0,     0,     0,     2,     4,     0,
+       0,    10,    14,     0,    12,     0,     1,     0,     0,     0,
+       0,     0,     0,    11,    13,     7,     8,     9,     5,     6,
+      15
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -4,    -4,     6,    -4,    -1
+     -11,   -11,     0,   -11,     1
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     3,     7,     5,     8
+       0,     6,    12,     8,    13
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -573,32 +588,44 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,     2,     6,     1,     2,     9,     4,    10,    11,    12
+       7,    23,     9,    10,    24,    16,    15,     1,     2,     3,
+      17,    18,    19,     0,     4,    11,     5,    25,    26,    27,
+      28,    29,     0,    30,     1,     2,     3,     0,     1,     2,
+       3,     4,     0,     5,    14,     4,     0,     5,    17,    18,
+      19,    20,    17,    18,    19,    22,    21,    17,    18,    19
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     4,     5,     3,     4,     0,     0,     6,     5,    10
+       0,    11,     2,     3,    13,     0,     5,     3,     4,     5,
+       7,     8,     9,    -1,    10,    11,    12,    17,    18,    19,
+      20,    21,    -1,    22,     3,     4,     5,    -1,     3,     4,
+       5,    10,    -1,    12,    13,    10,    -1,    12,     7,     8,
+       9,     6,     7,     8,     9,    14,     6,     7,     8,     9
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     4,     8,     9,    10,     5,     9,    11,     0,
-       6,     5,    11
+       0,     3,     4,     5,    10,    12,    16,    17,    18,    17,
+      17,    11,    17,    19,    13,    19,     0,     7,     8,     9,
+       6,     6,    14,    11,    13,    17,    17,    17,    17,    17,
+      19
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,     7,     8,     9,     9,    10,    10,    11,    11
+       0,    15,    16,    17,    17,    17,    17,    17,    17,    17,
+      18,    18,    18,    18,    19,    19
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     1,     1,     2,     3,     1,     3
+       0,     2,     1,     1,     1,     4,     4,     3,     3,     3,
+       2,     3,     2,     3,     1,     3
 };
 
 
@@ -1062,49 +1089,91 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* tree-sl: exp  */
-#line 20 "tree.y"
+#line 22 "tree.y"
                 { printf("\n=> "); mostrarData(eval((yyvsp[0].a))); }
-#line 1068 "tree.tab.c"
+#line 1095 "tree.tab.c"
     break;
 
   case 3: /* exp: NUMBER  */
-#line 24 "tree.y"
+#line 26 "tree.y"
                 { (yyval.a) = newdata(INT, NULL, (yyvsp[0].d)); }
-#line 1074 "tree.tab.c"
+#line 1101 "tree.tab.c"
     break;
 
   case 4: /* exp: lit_struct  */
-#line 25 "tree.y"
+#line 27 "tree.y"
                 {}
-#line 1080 "tree.tab.c"
+#line 1107 "tree.tab.c"
     break;
 
-  case 5: /* lit_struct: '[' ']'  */
+  case 5: /* exp: T_ADD exp FROM exp  */
 #line 28 "tree.y"
-                    { (yyval.a) = newdata(LIST, NULL, createData(LIST)); }
-#line 1086 "tree.tab.c"
+                      { (yyval.a) = newast(ADD, (yyvsp[-2].a), (yyvsp[0].a)); }
+#line 1113 "tree.tab.c"
     break;
 
-  case 6: /* lit_struct: '[' list_exp ']'  */
+  case 6: /* exp: T_KICK exp FROM exp  */
 #line 29 "tree.y"
-                    { (yyval.a) = newdata(LIST, (yyvsp[-1].a), createData(LIST)); }
-#line 1092 "tree.tab.c"
+                      { (yyval.a) = newast(KICK, (yyvsp[-2].a), (yyvsp[0].a)); }
+#line 1119 "tree.tab.c"
     break;
 
-  case 7: /* list_exp: exp  */
+  case 7: /* exp: exp T_UNION exp  */
+#line 30 "tree.y"
+                  { (yyval.a) = newast(UNION, (yyvsp[-2].a), (yyvsp[0].a)); }
+#line 1125 "tree.tab.c"
+    break;
+
+  case 8: /* exp: exp T_INTER exp  */
+#line 31 "tree.y"
+                  { (yyval.a) = newast(INTER, (yyvsp[-2].a), (yyvsp[0].a));}
+#line 1131 "tree.tab.c"
+    break;
+
+  case 9: /* exp: exp T_DIFF exp  */
 #line 32 "tree.y"
+                 { (yyval.a) = newast(DIFF, (yyvsp[-2].a), (yyvsp[0].a)); }
+#line 1137 "tree.tab.c"
+    break;
+
+  case 10: /* lit_struct: '[' ']'  */
+#line 36 "tree.y"
+                    { (yyval.a) = newdata(LIST, NULL, createData(LIST)); }
+#line 1143 "tree.tab.c"
+    break;
+
+  case 11: /* lit_struct: '[' list_exp ']'  */
+#line 37 "tree.y"
+                    { (yyval.a) = newdata(LIST, (yyvsp[-1].a), createData(LIST)); }
+#line 1149 "tree.tab.c"
+    break;
+
+  case 12: /* lit_struct: '{' '}'  */
+#line 38 "tree.y"
+                    { (yyval.a) = newdata(SET,NULL, createData(SET)); }
+#line 1155 "tree.tab.c"
+    break;
+
+  case 13: /* lit_struct: '{' list_exp '}'  */
+#line 39 "tree.y"
+                    { (yyval.a) = newdata(SET, %2, createData(SET)); }
+#line 1161 "tree.tab.c"
+    break;
+
+  case 14: /* list_exp: exp  */
+#line 42 "tree.y"
                     {}
-#line 1098 "tree.tab.c"
+#line 1167 "tree.tab.c"
     break;
 
-  case 8: /* list_exp: exp ',' list_exp  */
-#line 33 "tree.y"
+  case 15: /* list_exp: exp ',' list_exp  */
+#line 43 "tree.y"
                     { (yyval.a) = newast(LIST_OF_AST, (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1104 "tree.tab.c"
+#line 1173 "tree.tab.c"
     break;
 
 
-#line 1108 "tree.tab.c"
+#line 1177 "tree.tab.c"
 
       default: break;
     }
@@ -1297,7 +1366,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 36 "tree.y"
+#line 46 "tree.y"
  
 
 int main() {

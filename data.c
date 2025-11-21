@@ -1,6 +1,7 @@
+#include "defs.h"
 #include "data.h"
 
-#include "defs.h"
+
 /*==========================================================================*/
 /*								CONSTRUCTORES								*/
 /*==========================================================================*/
@@ -595,7 +596,7 @@ void eliminar_pos(tData *l, int pos)
 	if (!nav && get_tipo(nav) != LIST)
 	{
 		printf("Error eliminar_pos es una operacion de listas");
-		return NULL;
+		return ;
 	}
 
 	for (i = 1; i < pos && l; i++)

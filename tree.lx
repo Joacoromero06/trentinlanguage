@@ -17,13 +17,13 @@
 "]" | 
 "," { printf("RESERVED CHAR: %c\n", yytext[0]); return yytext[0]; } 
 
-KICK { printf("RESERVED WORD: %s\n", yytext); return KICK; }
-ADD  { printf("RESERVED WORD: %s\n", yytext); return ADD; }
+KICK { printf("RESERVED WORD: %s\n", yytext); return T_KICK; }
+ADD  { printf("RESERVED WORD: %s\n", yytext); return T_ADD; }
 FROM { printf("RESERVED WORD: %s\n", yytext); return FROM; }
 
-UNION { printf("RESERVED WORD: %s\n", yytext); return UNION; }
-INTER { printf("RESERVED WORD: %s\n", yytext); return INTER; }
-DIFF { printf("RESERVED WORD: %s\n", yytext); return DIFF; }
+UNION { printf("RESERVED WORD: %s\n", yytext); return T_UNION; }
+INTER { printf("RESERVED WORD: %s\n", yytext); return T_INTER; }
+DIFF { printf("RESERVED WORD: %s\n", yytext); return T_DIFF; }
 
 "#".*\n    {}
 [ \t]      {}

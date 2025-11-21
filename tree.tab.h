@@ -54,7 +54,13 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    NUMBER = 258                   /* NUMBER  */
+    NUMBER = 258,                  /* NUMBER  */
+    T_ADD = 259,                   /* T_ADD  */
+    T_KICK = 260,                  /* T_KICK  */
+    FROM = 261,                    /* FROM  */
+    T_UNION = 262,                 /* T_UNION  */
+    T_INTER = 263,                 /* T_INTER  */
+    T_DIFF = 264                   /* T_DIFF  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -68,7 +74,7 @@ union YYSTYPE
     struct ast* a;
     tData d;
 
-#line 72 "tree.tab.h"
+#line 78 "tree.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
