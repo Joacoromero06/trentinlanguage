@@ -7,7 +7,8 @@ tData eval(struct ast* a){
     {
     case INT: d = evaldata( (struct data*) a ); break;
     case LIST: d = evallist( (struct data*) a ); break;
-    case ADD: case KICK: d = evalopslist(a); 
+    case ADD: case KICK: d = evalopslist(a); break;
+    case UNION: case INTER: case DIFF = evalopsset(a); break;
     /*case IF: case WHILE: case FORALL: case FORANY: d = evalflow( (struct flow*) a );break;*/   
     default: printf("nodetype desconocido: %d", a->nodetype); break;
     }
@@ -35,6 +36,44 @@ tData evallist(struct data* a){
     agregarData( list_to_load, eval(nav) ); // add the last elemnt in list_of_ast to "lista_a_cargar"
 
     return a->d;
+}
+
+tData evalset(struct data* a){
+    if(!a->l) 
+        return a->d;
+    tData aux=NULL;
+    struct ast* nav=a->l;
+    tData set_procesado = &(a->d);
+    while(nav->nodetype == LIST_OF_AST){
+        aux=eval(nav->l);
+        printf("En evalset el elemento a agregar es: "); mostrarData(aux); printf("\n");
+        agregarData(set_procesado,aux);
+        nav=nav->r;
+    }
+    agregarData(set_procesado,eval(nav));
+    return a->d;
+}
+
+tData evalopsset(struct data* a){
+    tData nuevo;
+    struct ast* l=a->l;
+    struct ast* r=a->r;
+    switch(a->nodetype){
+        case UNION: if(r->nodetype == SET %% l->nodetype == SET){
+            nuevo=createSet();
+            nuevo=Union(eval(l),eval(r));
+        } break;
+        case INTER : if(r->nodetype == SET %% l->nodetype == SET){
+            nuevo=createSet();
+            nuevo=Interseccion(eval(l),eval(r));
+        }break;
+        case DIFF : if(r->nodetype == SET %% l->nodetype == SET){
+            nuevo=createSet();
+            nuevo=Diferencia(eval(l),eval(r));
+        }break;
+        default : printf("\nNo se como entre aqui.");
+    }
+    return nuevo;
 }
 
 tData evalopslist(struct ast* a){

@@ -21,8 +21,9 @@ KICK { printf("RESERVED WORD: %s\n", yytext); return KICK; }
 ADD  { printf("RESERVED WORD: %s\n", yytext); return ADD; }
 FROM { printf("RESERVED WORD: %s\n", yytext); return FROM; }
 
-UNION
-
+UNION { printf("RESERVED WORD: %s\n", yytext); return UNION; }
+INTER { printf("RESERVED WORD: %s\n", yytext); return INTER; }
+DIFF { printf("RESERVED WORD: %s\n", yytext); return DIFF; }
 
 "#".*\n    {}
 [ \t]      {}
