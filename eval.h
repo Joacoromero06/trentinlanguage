@@ -6,9 +6,9 @@
 tData eval(struct ast*);
 tData evaldata(struct data*);
 tData evallist(struct data*);
-tData evalset(struct data*);
+//tData evalset(struct data*);
 tData evalopslist(struct ast*);
-tData evalopsset(struct ast*);
+//tData evalopsset(struct ast*);
 //tData evalflow(struct flow*);
 
 void treefree(struct ast*);

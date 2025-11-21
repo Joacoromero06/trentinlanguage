@@ -18,27 +18,35 @@ typedef struct nodo_data{
 
 typedef TNodoData * tData;
 
-
+// Constructores
 tData createData(int);
-tData createList();
-tData createSet();
-tData createStr();
+
+tData createStr(char*);
 tData createInt(int);
 tData createDouble(double);
-tData createBool();
+tData createBool(char*);
+
+// getters setters
+tData get_dato (tData);
+tData get_next (tData);
+void set_dato(tData*, tData);
+void set_next(tData*, tData);
+
+int get_tipo(tData);
+
+int get_value(tData);
+double get_real(tData);
+str get_cad(tData);
 
 
-//funciones nucleo
+// Procedimientos basicos de tData
 int Igualdad(tData, tData);
 tData copiarData(tData);
 void mostrarData(tData);
 void agregarData(tData*, tData);
 void freeData(tData);
-tData Cargar();
-tData crear_arbol(int, int);
-tData toString(tData);
 
-//operaciones de conjunto
+// Operaciones de conjunto
 tData Union (tData, tData);
 tData Interseccion (tData, tData);
 tData Diferencia (tData, tData);
@@ -46,18 +54,9 @@ tData DifSimetrica (tData, tData);
 int pertenece(tData,tData);
 int cardinalidad (tData);
 int contenido (tData, tData);
-tData toSetWToken(tData, char);
 
-//funcion de cargar por cadena
-tData crearDesdeCadena(const char*);
-
-//funciones auxiliares de AF
-char dataAcadena(tData);
-tData obtener_elemento(tData, int);
-
-
-
-tData get_dato (tData);
-tData get_next (tData);
+// Operaciones de lista
+tData elemento_pos(tData, int pos);
+void eliminar_pos(tData*, int pos);
 
 #endif

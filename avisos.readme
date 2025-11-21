@@ -1,0 +1,8 @@
+Comando para colapsar todas las llaves
+ctrl k + ctrl 0. 
+
+Comando para desacer la colapcion de las llaves
+ctrl k + ctrl j
+
+Comando para formatear el codigo en C
+ctrl shift i

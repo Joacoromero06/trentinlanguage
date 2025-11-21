@@ -1,45 +1,69 @@
-# include "eval.h"
-# include "defs.h"
+#include "eval.h"
+#include "defs.h"
 
-tData eval(struct ast* a){
+tData eval(struct ast *a)
+{
     tData d = NULL;
     switch (a->nodetype)
     {
-    case INT: d = evaldata( (struct data*) a ); break;
-    case LIST: d = evallist( (struct data*) a ); break;
-    case ADD: case KICK: d = evalopslist(a); break;
-    case UNION: case INTER: case DIFF = evalopsset(a); break;
-    /*case IF: case WHILE: case FORALL: case FORANY: d = evalflow( (struct flow*) a );break;*/   
-    default: printf("nodetype desconocido: %d", a->nodetype); break;
+    case INT:
+        d = evaldata((struct data *)a);
+        break;
+    case LIST:
+        d = evallist((struct data *)a);
+        break;
+    case ADD:
+    case KICK:
+        d = evalopslist(a);
+        break;
+    case UNION:
+    case INTER:
+    case DIFF:
+        d = evalopsset(a);
+        break;
+    /*case IF: case WHILE: case FORALL: case FORANY: d = evalflow( (struct flow*) a );break;*/
+    default:
+        printf("nodetype desconocido: %d", a->nodetype);
+        break;
     }
     return d;
 }
 
-tData evaldata(struct data* a){
-    printf("Estoy en evaldata: ");mostrarData(a->d);printf("\n");
+tData evaldata(struct data *a)
+{
+    printf("Estoy en evaldata: ");
+    mostrarData(a->d);
+    printf("\n");
     return a->d;
 }
 
-tData evallist(struct data* a){
-    if (!a->l) return a->d; //empty list_of_ast => empty list
-    
-    printf("Estoy en evallist\n");tData aux = NULL;
+tData evallist(struct data *a)
+{
+    if (!a->l)
+        return a->d; // empty list_of_ast => empty list
 
-    struct ast* nav     = a->l;
-    tData* list_to_load = &(a->d);
-    while( nav->nodetype == LIST_OF_AST ){
+    printf("Estoy en evallist\n");
+    tData aux = NULL;
+
+    struct ast *nav = a->l;
+    tData *list_to_load = &(a->d);
+    while (nav->nodetype == LIST_OF_AST)
+    {
         aux = eval(nav->l);
-        printf("En evallist el elemento a agregar es: "); mostrarData(aux); printf("\n");
-        agregarData( list_to_load, aux );
+        printf("En evallist el elemento a agregar es: ");
+        mostrarData(aux);
+        printf("\n");
+        agregarData(list_to_load, aux);
         nav = nav->r;
     }
-    agregarData( list_to_load, eval(nav) ); // add the last elemnt in list_of_ast to "lista_a_cargar"
+    agregarData(list_to_load, eval(nav)); // add the last elemnt in list_of_ast to "lista_a_cargar"
 
     return a->d;
 }
 
+/*
 tData evalset(struct data* a){
-    if(!a->l) 
+    if(!a->l)
         return a->d;
     tData aux=NULL;
     struct ast* nav=a->l;
@@ -52,59 +76,66 @@ tData evalset(struct data* a){
     }
     agregarData(set_procesado,eval(nav));
     return a->d;
-}
+}*/
 
-tData evalopsset(struct data* a){
+/*
+tData evalopsset(struct ast* a){
     tData nuevo;
     struct ast* l=a->l;
     struct ast* r=a->r;
     switch(a->nodetype){
-        case UNION: if(r->nodetype == SET %% l->nodetype == SET){
+        case UNION: if(r->nodetype == SET && l->nodetype == SET){
             nuevo=createSet();
             nuevo=Union(eval(l),eval(r));
         } break;
-        case INTER : if(r->nodetype == SET %% l->nodetype == SET){
+        case INTER : if(r->nodetype == SET && l->nodetype == SET){
             nuevo=createSet();
             nuevo=Interseccion(eval(l),eval(r));
         }break;
-        case DIFF : if(r->nodetype == SET %% l->nodetype == SET){
+        case DIFF : if(r->nodetype == SET && l->nodetype == SET){
             nuevo=createSet();
             nuevo=Diferencia(eval(l),eval(r));
         }break;
         default : printf("\nNo se como entre aqui.");
     }
     return nuevo;
-}
+}*/
 
-tData evalopslist(struct ast* a){
+tData evalopslist(struct ast *a)
+{
     tData nuevo;
-    struct ast* l=a->l;
-    struct ast* r=a->r;
+    struct ast *l = a->l;
+    struct ast *r = a->r;
     switch (a->nodetype)
     {
-    case ADD: if(r->nodetype == LIST){//cuando es LIST es struct data casteado a ast  3 add [1, 2]
-        nuevo=createList();
-        nuevo=copiarData(eval(r));
-        //nuevo=copiarData(((struct data*) r)->d);
-        agregarData(&nuevo, eval(l));
-        //agregarData(&nuevo,((struct data*)l)->d);
-    }
-    break;
-    case KICK: if(r->nodetype == LIST){ //cuando es LIST es struct data casteado a ast  3 add [1, 2]
-        nuevo = eval(r);                // quiero probar que pasa
-        elimniar_pos(&nuevo, eval(l));
-    }
+    case ADD:
+        if (r->nodetype == LIST)
+        { // cuando es LIST es struct data casteado a ast  3 add [1, 2]
+            nuevo = createList();
+            nuevo = copiarData(eval(r));
+            mostrarData(((struct data *)r)->d);
+            agregarData(&nuevo, eval(l));
+            // agregarData(&nuevo,((struct data*)l)->d);
+        }
         break;
-    default: printf("\nExplosion en 3, 2, 1...");
+    case KICK:
+        if (r->nodetype == LIST)
+        {                    // cuando es LIST es struct data casteado a ast  3 add [1, 2]
+            nuevo = eval(r); // quiero probar que pasa
+            elimniar_pos(&nuevo, eval(l));
+        }
+        break;
+    default:
+        printf("\nExplosion en 3, 2, 1...");
         break;
     }
     return nuevo;
 }
 
-tData evalopsint(struct ast* a){
-    //oya
+tData evalopsint(struct ast *a)
+{
+    // oya
 }
-
 
 /*
 tData evalflow(struct flow* f){
