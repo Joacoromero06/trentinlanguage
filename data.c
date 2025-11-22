@@ -1,6 +1,5 @@
-#include "defs.h"
 #include "data.h"
-
+#include "defs.h"
 
 /*==========================================================================*/
 /*								CONSTRUCTORES								*/
@@ -114,22 +113,17 @@ void set_dato(tData *node, tData dato)
 	(*node)->dato = dato;
 }
 
-int get_tipo(tData a)
-{
+int get_tipo(tData a){
 	return a->tipoNodo;
 }
 
 int get_value(tData a)
 {
-	if (get_tipo(a) != INT || get_tipo(a) != BOOL)
-	{
-		printf("error %d no tiene campo value", get_tipo(a));
-		return 0;
+	if(!a) {
+		printf("\nQuiere obtener un valor de un tdata vacio.\n");
+		exit(1);
 	}
-	else
-	{
-		return a->value;
-	}
+	return a->value;
 }
 double get_real(tData a)
 {
@@ -161,6 +155,11 @@ str get_cad(tData a)
 /*==========================================================================*/
 tData sumaData(tData a, tData b)
 {
+	if(!a || !b)
+	{
+		printf("punteros nulos en sumaData");
+		return NULL;
+	}
 	if (a->tipoNodo == DOUBLE && b->tipoNodo == DOUBLE)
 		return createDouble(a->real + b->real);
 	if (a->tipoNodo == DOUBLE && b->tipoNodo == INT)
@@ -168,6 +167,51 @@ tData sumaData(tData a, tData b)
 	if (a->tipoNodo == INT && b->tipoNodo == DOUBLE)
 		return createDouble(a->real + b->value);
 	return createInt(a->value + b->value);
+}
+tData restaData(tData a, tData b)
+{
+	if(!a || !b)
+	{
+		printf("punteros nulos en restaData");
+		return NULL;
+	}
+	if (a->tipoNodo == DOUBLE && b->tipoNodo == DOUBLE)
+		return createDouble(a->real - b->real);
+	if (a->tipoNodo == DOUBLE && b->tipoNodo == INT)
+		return createDouble(a->real - b->value);
+	if (a->tipoNodo == INT && b->tipoNodo == DOUBLE)
+		return createDouble(a->real - b->value);
+	return createInt(a->value - b->value);
+}
+tData prodData(tData a, tData b)
+{
+	if(!a || !b)
+	{
+		printf("punteros nulos en prodData");
+		return NULL;
+	}
+	if (a->tipoNodo == DOUBLE && b->tipoNodo == DOUBLE)
+		return createDouble(a->real * b->real);
+	if (a->tipoNodo == DOUBLE && b->tipoNodo == INT)
+		return createDouble(a->real * b->value);
+	if (a->tipoNodo == INT && b->tipoNodo == DOUBLE)
+		return createDouble(a->real * b->value);
+	return createInt(a->value * b->value);
+}
+tData cocData(tData a, tData b)
+{
+	if(!a || !b)
+	{
+		printf("punteros nulos en divData");
+		return NULL;
+	}
+	if (a->tipoNodo == DOUBLE && b->tipoNodo == DOUBLE)
+		return createDouble(a->real / b->real);
+	if (a->tipoNodo == DOUBLE && b->tipoNodo == INT)
+		return createDouble(a->real / b->value);
+	if (a->tipoNodo == INT && b->tipoNodo == DOUBLE)
+		return createDouble(a->real / b->value);
+	return createInt(a->value / b->value);
 }
 
 /*==========================================================================*/
@@ -191,7 +235,7 @@ void mostrarData(tData nodo)
 		printf("%f", nodo->real);
 		break;
 	case BOOL:
-		(nodo->value == 0) ? printf("FALSE") : printf("TRUE");
+		(nodo->value == 0) ? printf("false") : printf("true");
 		break;
 	case LIST:
 		printf("[");
@@ -226,24 +270,27 @@ void mostrarData(tData nodo)
 }
 void agregarData(tData *cabe, tData elem)
 {
-	printf("Estoy en agregarData \n");
-	tData cab = *cabe;
-	if (!cab)
+	tData cab = *cabe; 
+	if (!cab )
 	{
 		printf("No se puede agregar un elemento a un espacio de memoria no asignado");
 		return;
 	}
+	if( get_tipo(cab)!= SET && get_tipo(cab)!= LIST )
+	{
+		printf("No se puede agregar un elemento a un objeto que no es list o conjunto");
+		return;
+	}
 	if (cab->dato == NULL)
 	{
-		printf("la lista esta vacia \n");
-		cab->dato = copiarData(elem);
+
+		cab->dato = elem;
 	}
 	else
 	{
 		switch (cab->tipoNodo)
 		{
-		case STR:
-			return;
+		case STR: case INT: case DOUBLE: case BOOL:
 			break;
 		case SET:
 		case LIST:
@@ -255,7 +302,7 @@ void agregarData(tData *cabe, tData elem)
 				if (pertenece(cab, elem) == 0)
 					return;
 			}
-			printf("Estoy en agregarData\n");
+			//printf("Estoy en agregarData\n");
 
 			while (cab->sig != NULL)
 				cab = cab->sig;
@@ -265,20 +312,20 @@ void agregarData(tData *cabe, tData elem)
 			cab->sig = nvo;
 			break;
 		}
+		default: printf("caso no def en agregarData"); break;
 		}
 	}
-	printf("\n\ndespues de agregar elem: ");
-	mostrarData(elem);
-	printf("\nla lista cab quedo: ");
-	mostrarData(cab);
-	printf("\n");
+	//printf("\n\ndespues de agregar elem: ");
+	//mostrarData(elem);
+	//printf("\nla lista cab quedo: ");
+	//mostrarData(*cabe);
+	//printf("\n");
 }
 tData copiarData(tData copiado)
 {
 	tData nvo = NULL;
 	if (copiado == NULL)
-		return nvo;
-
+		return NULL;
 	switch (copiado->tipoNodo)
 	{
 	case INT:
@@ -288,11 +335,14 @@ tData copiarData(tData copiado)
 		nvo = createDouble(copiado->real);
 		break;
 	case BOOL:
-		if (get_value(copiado))
+		if (get_value(copiado)){
+
 			nvo = createBool("true");
+		}
 		else
 			nvo = createBool("false");
-		break;
+
+			break;
 	case STR:
 		nvo = createData(STR);
 		nvo->cad = copyStr(copiado->cad);
@@ -325,7 +375,7 @@ void freeData(tData descartado)
 	case BOOL:
 	case INT:
 	case DOUBLE:
-		free(descartado);
+		free(descartado); break;
 	case LIST:
 	case SET:
 		freeData(descartado->dato);
@@ -350,9 +400,9 @@ int Igualdad(tData A, tData B)
 		break;
 	case BOOL:
 	case INT:
-		return get_value(A) == get_value(B);
+		return !(get_value(A) == get_value(B));
 	case DOUBLE:
-		return get_real(A) == get_real(B);
+		return !(get_real(A) == get_real(B));
 	case SET:
 	{
 		tData auxA = A;
@@ -539,6 +589,15 @@ int pertenece(tData A, tData elem)
 
 	return 1;
 }
+int pertenece_completing(tData a, tData b){
+	int band=1;
+	while(b!=NULL && a!=NULL && band){
+		if(pertenece(a,b))
+			b=0;
+		b=b->sig;
+	}
+	return band;
+}
 int contenido(tData A, tData B)
 {
 
@@ -573,33 +632,58 @@ int cardinalidad(tData A)
 /*==========================================================================*/
 tData elemento_pos(tData lista, int pos)
 {
-	if (!lista && get_tipo(lista) != LIST)
+	if (!lista || get_tipo(lista) != LIST)
 	{
 		printf("Error elemento_pos es una operacion de listas");
 		return NULL;
 	}
-
-	for (int i = 0; i < pos && lista != NULL; i++)
-	{
-		lista = get_next(lista);
+	int i=1;
+	while(i<pos && lista!=NULL){
+		i++;
+		lista=get_next(lista);
 	}
-	return (!lista) ? get_dato(lista) : NULL;
+	if(i=pos && lista!=NULL) return get_dato(lista);
+	printf("Posicion más grande que indice.\n");
+	return createStr("-1");
+	
+
+	}
+tData concat_list(tData a,tData b){
+	tData nuevo=createData(LIST);
+	if(!a || !b){printf("error concatenar_listas  de listas nulas");return NULL;}
+	printf("inicio concat list\n");
+	while(a!=NULL){
+		agregarData(&nuevo, get_dato(a));	
+		a = get_next(a);
+	}
+	printf("medio concat list\n");
+	while(b!=NULL)
+	{
+		agregarData(&nuevo, get_dato(b));
+		b = get_next(b);
+	}
+	printf("saliendo concat list\n");
+	return nuevo;	
 }
 void eliminar_pos(tData *l, int pos)
 {
-
 	int i;
 	tData ant, nav;
 	nav = *l;
 	ant = NULL;
 
-	if (!nav && get_tipo(nav) != LIST)
+	/*if (!nav)
+	{
+		printf("Error eliminar_pos nav null");
+		return ;
+	}*/
+	if (!nav || get_tipo(nav) != LIST)
 	{
 		printf("Error eliminar_pos es una operacion de listas");
 		return ;
 	}
 
-	for (i = 1; i < pos && l; i++)
+	for (i = 1; i < pos && nav; i++)
 	{
 		ant = nav;
 		nav = get_next(nav);
@@ -608,8 +692,10 @@ void eliminar_pos(tData *l, int pos)
 		return; // posicion fuera de la lista
 	if (!ant)
 	{ // eliminar cabeza
+		
 		*l = get_next(nav);
-		freeData(nav);
+		//freeData(get_dato(nav));
+		//freeData(nav);
 	}
 	else
 	{ // eliminacion en lista
@@ -617,3 +703,4 @@ void eliminar_pos(tData *l, int pos)
 		freeData(nav);
 	}
 }
+

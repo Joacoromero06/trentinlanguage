@@ -38,13 +38,18 @@ int get_value(tData);
 double get_real(tData);
 str get_cad(tData);
 
+// Operaciones Artimeticas de tData
+tData sumaData(tData, tData);
+tData restaData(tData, tData);
+tData prodData(tData, tData);
+tData cocData(tData, tData);
 
 // Procedimientos basicos de tData
 int Igualdad(tData, tData);
-tData copiarData(tData);
 void mostrarData(tData);
 void agregarData(tData*, tData);
 void freeData(tData);
+tData copiarData(tData );
 
 // Operaciones de conjunto
 tData Union (tData, tData);
@@ -58,5 +63,7 @@ int contenido (tData, tData);
 // Operaciones de lista
 tData elemento_pos(tData, int pos);
 void eliminar_pos(tData*, int pos);
+tData concat_list(tData,tData);
+int pertenece_completing(tData, tData);
 
 #endif

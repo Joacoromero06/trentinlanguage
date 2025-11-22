@@ -1,8 +1,6 @@
 {
     "files.associations": {
         ".als.json": "jsonc",
-        "eval.h": "c",
-        "defs.h": "c",
-        "data.h": "c"
+        "defs.h": "c"
     }
 }

@@ -1,36 +1,19 @@
-#ifndef AST_H
-#define AST_H
-
 #include "data.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-struct ast
-{
+struct ast{
     int nodetype;
-    struct ast *l;
-    struct ast *r;
-};
-struct data
-{
-    int nodetype;
-    struct ast *l; // LIST_OF_AST
-    tData d;
-};
-/*
-struct flow{
-    int nodetype;
-    struct symbol* s;
     struct ast* l;
     struct ast* r;
-    struct ast* cond;
-};*/
+    tData d;
+};
 
-// Constructores
-struct ast *newast(int, struct ast *, struct ast *);
-struct ast *newdata(int, struct ast *, tData);
+struct ast* newast(int, struct ast*, struct ast*, tData);
 
-// Atributos 
-int get_type_ast(struct ast*);
-int get_type_data(struct data*);
+int get_nodetype(struct ast*);
+
+tData eval(struct ast*);
 
 
-#endif
+int yyerror(char*);

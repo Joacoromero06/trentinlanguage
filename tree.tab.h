@@ -54,13 +54,23 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    NUMBER = 258,                  /* NUMBER  */
+    EOL = 258,                     /* EOL  */
     T_ADD = 259,                   /* T_ADD  */
     T_KICK = 260,                  /* T_KICK  */
-    FROM = 261,                    /* FROM  */
-    T_UNION = 262,                 /* T_UNION  */
-    T_INTER = 263,                 /* T_INTER  */
-    T_DIFF = 264                   /* T_DIFF  */
+    T_TAKE = 261,                  /* T_TAKE  */
+    NUM_INT = 262,                 /* NUM_INT  */
+    ATOM = 263,                    /* ATOM  */
+    NUM_DOUBLE = 264,              /* NUM_DOUBLE  */
+    T_BOOL = 265,                  /* T_BOOL  */
+    ID = 266,                      /* ID  */
+    T_IN = 267,                    /* T_IN  */
+    T_CONTAINS = 268,              /* T_CONTAINS  */
+    T_UNION = 269,                 /* T_UNION  */
+    T_INTER = 270,                 /* T_INTER  */
+    T_DIFF = 271,                  /* T_DIFF  */
+    T_CONCAT = 272,                /* T_CONCAT  */
+    T_FROM = 273,                  /* T_FROM  */
+    T_TO = 274                     /* T_TO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -69,12 +79,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 10 "tree.y"
+#line 12 "tree.y"
 
     struct ast* a;
-    tData d;
+    tData td;
 
-#line 78 "tree.tab.h"
+#line 88 "tree.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
